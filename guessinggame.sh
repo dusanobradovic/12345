@@ -1,25 +1,28 @@
-#!/bin/bash
+realnum =$(ls -la .|egrep -c "(^-)|(^l)")
 
-realNumOfFiles=$(ls -la .|egrep -c "(^-)|(^l)")
-echo "Guess how many files are in $(pwd)"
-function yourGuess(){
-        while true;do
-                echo -n "Your try: "
-                read -r guess
-                if ! [[ $guess =~ ^[0-9]+$ ]]
-                then
-        echo "Sorry integers only"
-        continue
-                fi
-                if [ $guess -eq $realNumOfFiles ];then 
-                        echo "Congrats.Real number of files in $pwd is $guess"
-                        break
-                elif [ $guess -lt $realNumOfFiles ];then
-                        echo "Wrong.Try higher number.Number is too low!"
-                else
-                        echo "Wrong.Try smaller number.Number is too high!"
-                fi
-        done 
+echo "Guess what is the number of files? in $(pwd)"
+
+function Guess() {
+
+	while true;   do
+		echo "your attempt: "
+		if ! [[ $inp =~ $val ]]
+		then
+			echo "Enter integers only."
+			read inp
+		continue
+			fi
+			if [$inp -eq $realnum] 
+			then	echo "Contratulations!"
+				break
+			elif  [$inp -gt $realnum]
+			then    echo "Your number is too high, please try again."
+				read inp
+			else
+				echo "Your number is too low, please try again."
+			fi
+		done
 }
 
-yourGuess
+
+
