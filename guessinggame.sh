@@ -1,6 +1,6 @@
 realnum =$(ls -la .|egrep -c "(^-)|(^l)")
 
-echo "Guess what is the number of files? in $(pwd)"
+echo "Guess what is the number of files?"
 
 function Guess() {
 
