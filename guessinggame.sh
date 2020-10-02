@@ -1,44 +1,23 @@
-import random
+#!/bin/bash
 
- guessesTaken = 0
-
-
-
-print('Hello! What is your name?')
-
-myName = input()
-
-
-
-number = random.randint(1, 20)
-
- print('Well, ' + myName + ', I am thinking of a number between 1 and 20.')
-
-
-
- while guessesTaken < 6:
- print('Take a guess.') # There are four spaces in front of print.
- 
-guess = input()
-guess = int(guess)
-
-guessesTaken = guessesTaken + 1
-
-if guess < number:
-print('Your guess is too low.') # There are eight spaces in front of print.
-
-if guess > number:
-print('Your guess is too high.')
-
-if guess == number:
- break
-
-if guess == number:
- guessesTaken = str(guessesTaken)
- print('Good job, ' + myName + '! You guessed my number in ' + guessesTaken + ' guesses!')
-
-
-if guess != number:
-number = str(number)
-
- print('Nope. The number I was thinking of was ' + number)
+realNumOfFiles=$(ls -la .|egrep -c "(^-)|(^l)")
+echo "Guess how many files are in $(pwd)"
+function GuessingGame(){
+        while true;do
+                echo -n "Try: "
+                read -r guess
+                if ! [[ $guess =~ ^[0-9]+$ ]]
+                then
+        echo "Integers only?"
+        continue
+                fi
+                if [ $guess -eq $realNumOfFiles ];then 
+                        echo "Congrats.Real number of files in $pwd is $guess"
+                        break
+                elif [ $guess -lt $realNumOfFiles ];then
+                        echo "Try again.Your number is too low!"
+                else
+                        echo "Try again. Your number is too high!"
+                fi
+        done 
+}
