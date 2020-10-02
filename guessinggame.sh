@@ -1,25 +1,39 @@
-#!/bin/bash
-
-realNumOfFiles=$(ls -la .|egrep -c "(^-)|(^l)")
-echo "Guess how many files are in $(pwd)"
-function yourGuess(){
-        while true;do
-                echo -n "Your try: "
-                read -r guess
-                if ! [[ $guess =~ ^[0-9]+$ ]]
-                then
-        echo "Sorry integers only"
-        continue
-                fi
-                if [ $guess -eq $realNumOfFiles ];then 
-                        echo "Congrats.Real number of files in $pwd is $guess"
-                        break
-                elif [ $guess -lt $realNumOfFiles ];then
-                        echo "Wrong.Try higher number.Number is too low!"
-                else
-                        echo "Wrong.Try smaller number.Number is too high!"
-                fi
-        done 
-}
-
-yourGuess
+import random
+import math
+ # Taking Inputs
+lower = int(input("Emter Lower bound:- ")) 
+ 
+# Taking Inputs
+upper = int(input("Enter Upper bound:- "))  
+ 
+# generating random number between
+# the lower and upper
+x = random.randint(lower, upper)
+print("\n\tYou've only ", round(math.log(upper - lower + 1, 2))," chances to guess the integer!\n")
+ 
+ # Initializing the number of guesses.
+count = 0
+ 
+# for calculation of minimum number of
+# guesses depends upon range
+while count < math.log(upper - lower + 1, 2):
+    count += 1
+     
+     # taking guessing number as input
+    guess = int(input("Guess a number:- ")) 
+     
+    # Condition testing
+    if x == guess:  
+       print("Congratulations you did it in ", count, " try")
+       # Once guessed, loop will break 
+       break
+    elif x > guess:
+       print("You guessed too small!")
+    elif x < guess:
+       print("You Guessed too high!")
+ 
+# If Guessing is more than required guesses, 
+# shows this output.
+if count >= math.log(upper - lower + 1, 2):
+   print("\nThe number is %d"%x)
+   print("\tBetter Luck Next time!")
