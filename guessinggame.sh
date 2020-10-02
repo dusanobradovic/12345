@@ -1,23 +1,24 @@
 #!/bin/bash
 
-realNumOfFiles=$(ls -la .|egrep -c "(^-)|(^l)")
-echo "Guess how many files are in $(pwd)"
-function GuessingGame(){
-        while true;do
-                echo -n "Try: "
-                read -r guess
-                if ! [[ $guess =~ ^[0-9]+$ ]]
-                then
-        echo "Integers only?"
-        continue
-                fi
-                if [ $guess -eq $realNumOfFiles ];then 
-                        echo "Congrats.Real number of files in $pwd is $guess"
-                        break
-                elif [ $guess -lt $realNumOfFiles ];then
-                        echo "Try again.Your number is too low!"
-                else
-                        echo "Try again. Your number is too high!"
-                fi
-        done 
-}
+
+n1=$[($RANDOM % 100) +1]
+guesses=1
+echo -n "I'm thinking of a number between 1 and 100. Your guess:"
+
+while read n2; do
+
+if   [[ $n2 -eq $n1 ]]; then
+break;  
+else
+echo    
+if [[ $n2 -gt $n1 ]]; then 
+echo -n "Sorry, your guess is too high. New guess:"
+elif [[ $n2 -lt $n1 ]]; then
+echo -n "Sorry, your guess is too low. New guess:"
+fi      
+fi
+guesses=$((guesses+1))
+
+done
+echo
+echo "Good job! It took you $guesses guesses to get the right number."
